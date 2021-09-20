@@ -21,6 +21,7 @@ const FormStyled = styled.div`
     flex-direction: column;
     align-content: center;
     padding-top: 40px;
+    //
   }
   .username {
     width: 76%;
