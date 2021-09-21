@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const LogIconStyled = styled.div`
   img {
-    display: flex;
     position: fixed;
     height: 180px;
     margin-left: 15rem;
