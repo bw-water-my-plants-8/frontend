@@ -11,9 +11,9 @@ const initialFormValues = {
   username: "",
   password: "",
   phone: "",
-  firstName: "",
-  lastName: "",
-  tos: false,
+  // firstName: "",
+  // lastName: "",
+  // tos: false,
 };
 const initialFormErrors = {
   username: "",
@@ -23,10 +23,12 @@ const initialFormErrors = {
   lastName: "",
   tos: false,
 };
+const initialDisabled = true;
+
 const SignupPage = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormValues);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
   const validate = (name, value) => {
     yup
