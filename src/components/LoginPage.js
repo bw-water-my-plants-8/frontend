@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LogIconStyled from "./LogIconStyled";
 import schema from "../validation/LoginSchema";
 import FormStyled from "./FormStyled";
+import axios from "axios";
 import * as yup from "yup";
 
 const initialFormValues = {
@@ -32,6 +33,23 @@ const LoginPage = (props) => {
   };
   const submit = (evt) => {
     evt.preventDefault();
+    axios
+      .post(
+        "https://water-my-plants-8-api.herokuapp.com/auth/login",
+        formValues
+      )
+      .then((res) => {
+        console.log(res);
+        //set user state here from redux
+        setFormValues(initialFormValues);
+        setFormErrors(initialFormErrors);
+      })
+      .catch((err) => {
+        setFormValues(initialFormValues);
+        setFormErrors(initialFormErrors);
+      });
+    setFormValues(initialFormValues);
+    setFormErrors(initialFormErrors);
     setFormValues(initialFormValues);
     setFormErrors(initialFormErrors);
   };
