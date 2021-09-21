@@ -159,4 +159,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default (mapStateToProps, { setUser })(SignupPage);
+export default connect(mapStateToProps, { setUser })(SignupPage);
