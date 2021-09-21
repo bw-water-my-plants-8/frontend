@@ -8,7 +8,7 @@ import icon from "./images/loginIcon.jpg";
 
 import SignupPage from "./components/SignupPage";
 
-import PlantInfoForm from "./components/PlantInfoForm";
+// import PlantInfoForm from "./components/PlantInfoForm";
 
 function App() {
   //Jennifer's section
@@ -23,7 +23,7 @@ function App() {
   return (
     <div>
       {/* Jennifer's section */}
-      <PlantInfoForm />
+      {/* <PlantInfoForm /> */}
       {/* Shanae's Section */}
       <Switch>
         <Route path="/login">

@@ -13,7 +13,6 @@ const initialFormErrors = {
   username: "",
   password: "",
 };
-const initialDisabled = true;
 
 const LoginPage = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -40,7 +39,8 @@ const LoginPage = (props) => {
       )
       .then((res) => {
         console.log(res);
-        //set user state here from redux
+        localStorage.setItem("token", res.data.token);
+        props.history.push("/plants");
         setFormValues(initialFormValues);
         setFormErrors(initialFormErrors);
       })
@@ -91,7 +91,7 @@ const LoginPage = (props) => {
             <button className="signIn">Sign in!</button>
           </form>
           <p className="forgot" align="center">
-            <a href="#">Forgot Password?</a>
+            <a href="/login">Forgot Password?</a>
           </p>
           <p align="center" className="signUp">
             Don't have an account? <a href="/signup">Sign up!</a>
