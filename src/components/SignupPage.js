@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import * as yup from "yup";
+import { connect } from "react-redux";
+import { setUser } from "../actions";
 
 import FormStyled from "./FormStyled";
 import schema from "../validation/SignupSchema";
@@ -48,7 +50,7 @@ const SignupPage = (props) => {
       )
       .then((res) => {
         console.log(res);
-        //set user state here from redux
+        // setUser( pass in the user object here)
         setFormValues(initialFormValues);
         setFormErrors(initialFormErrors);
       })
@@ -150,4 +152,10 @@ const SignupPage = (props) => {
   );
 };
 
-export default SignupPage;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, { setUser })(SignupPage);

@@ -23,7 +23,7 @@ function App() {
   return (
     <div>
       {/* Jennifer's section */}
-      <PlantInfoForm />
+      {/* <PlantInfoForm /> */}
       {/* Shanae's Section */}
       <Switch>
         <Route path="/login">
