@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import schema from "./../validation/PlantInfoSchema";
 import * as yup from "yup";
+import axios from "axios";
+import { connect } from "react-redux";
+import { addPlant } from "../actions";
 
 const initialState = {
   nickname: "",
@@ -18,7 +21,7 @@ const initialFormErrors = {
 const btnDisabled = true;
 
 const PlantInfoForm = () => {
-  const [plantState, setPlantState] = useState(initialState);
+  const [plant, setPlant] = useState(initialState);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(btnDisabled);
 
@@ -33,18 +36,25 @@ const PlantInfoForm = () => {
   };
 
   useEffect(() => {
-    schema.isValid(plantState).then((valid) => setDisabled(!valid));
-  }, [plantState]);
+    schema.isValid(plant).then((valid) => setDisabled(!valid));
+  }, [plant]);
 
   const handleChange = (e) => {
     validate(e.target.name, e.target.value);
-    setPlantState({ ...plantState, [e.target.name]: e.target.value });
+    setPlant({ ...plant, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    //axios here
-    setPlantState(initialState);
-    setFormErrors(initialFormErrors);
+    axios
+      .post(`https://water-my-plants-8-api.herokuapp.com/plants`, plant)
+      .then((res) => {
+        addPlant(res.data);
+        setPlant(initialState);
+        setFormErrors(initialFormErrors);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -55,7 +65,7 @@ const PlantInfoForm = () => {
           Nickname
           <input
             type="text"
-            value={plantState.nickname}
+            value={plant.nickname}
             name="nickname"
             onChange={handleChange}
           />
@@ -66,7 +76,7 @@ const PlantInfoForm = () => {
           Species
           <input
             type="text"
-            value={plantState.species}
+            value={plant.species}
             name="species"
             onChange={handleChange}
           />
@@ -77,7 +87,7 @@ const PlantInfoForm = () => {
           <input
             type="number"
             id="frequency"
-            value={plantState.frequency}
+            value={plant.frequency}
             name="frequency"
             onChange={handleChange}
           />
@@ -101,4 +111,10 @@ const PlantInfoForm = () => {
   );
 };
 
-export default PlantInfoForm;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, { addPlant })(PlantInfoForm);

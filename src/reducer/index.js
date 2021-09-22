@@ -1,7 +1,20 @@
-import { SET_USER } from "../actions";
+import {
+  SET_USER,
+  ADD_PLANT,
+  EDIT_PLANT,
+  DELETE_PLANT,
+  LOGIN_ERROR,
+} from "../actions";
 
 const initialState = {
-  users: {},
+  plants: [],
+  user: {
+    user_id: "",
+    username: "",
+    password: "",
+    phone_number: "",
+  },
+  error: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,11 +23,30 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: {
-          id: action.payload.id,
+          user_id: action.payload.id,
           username: action.payload.username,
           password: action.payload.password,
-          phoneNumber: action.payload.password,
+          phone_number: action.payload.phone_number,
         },
+      };
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case ADD_PLANT:
+      return {
+        ...state,
+        plants: [...state.plants, action.payload],
+      };
+    case EDIT_PLANT:
+      return {
+        ...state,
+      };
+    case DELETE_PLANT:
+      return {
+        ...state,
+        plants: state.plants.filter((plant) => plant !== action.payload),
       };
     default:
       return state;
