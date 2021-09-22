@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import schema from "./../validation/PlantInfoSchema";
 import * as yup from "yup";
-import axios from "axios";
+import axiosWithAuth from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { addPlant } from "../actions";
 
@@ -45,7 +45,7 @@ const PlantInfoForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
+    axiosWithAuth()
       .post(`https://water-my-plants-8-api.herokuapp.com/plants`, plant)
       .then((res) => {
         addPlant(res.data);
