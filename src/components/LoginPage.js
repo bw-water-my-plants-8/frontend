@@ -5,7 +5,8 @@ import FormStyled from "./FormStyled";
 import axios from "axios";
 import * as yup from "yup";
 import { connect } from "react-redux";
-import { setUser } from "../actions";
+import { loginError, setUser } from "../actions";
+import { useHistory } from "react-router-dom";
 
 const initialFormValues = {
   username: "",
@@ -19,6 +20,7 @@ const initialFormErrors = {
 const LoginPage = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const history = useHistory();
 
   const validate = (name, value) => {
     yup
@@ -30,7 +32,7 @@ const LoginPage = (props) => {
   const inputChange = (evt) => {
     const { name, value } = evt.target;
     validate(name, value);
-    setFormValues({ ...setFormValues, [name]: value });
+    setFormValues({ ...formValues, [name]: value });
   };
   const submit = (evt) => {
     evt.preventDefault();
@@ -40,21 +42,17 @@ const LoginPage = (props) => {
         formValues
       )
       .then((res) => {
-        console.log(res);
-        // setUser(res.user);
-        // localStorage.setItem("token", res.data.token);
-        // props.history.push("/plants");
+        setUser(res.data.user);
+        localStorage.setItem("token", res.data.token);
+        history.push("/plants");
         setFormValues(initialFormValues);
         setFormErrors(initialFormErrors);
       })
       .catch((err) => {
+        loginError(err);
         setFormValues(initialFormValues);
         setFormErrors(initialFormErrors);
       });
-    setFormValues(initialFormValues);
-    setFormErrors(initialFormErrors);
-    setFormValues(initialFormValues);
-    setFormErrors(initialFormErrors);
   };
 
   return (
@@ -111,4 +109,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setUser })(LoginPage);
+export default connect(mapStateToProps, { setUser, loginError })(LoginPage);

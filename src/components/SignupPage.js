@@ -19,15 +19,15 @@ const initialFormErrors = {
   username: "",
   password: "",
   phone: "",
-  firstName: "",
-  lastName: "",
-  tos: false,
+  //   firstName: "",
+  //   lastName: "",
+  //   tos: false,
 };
 const initialDisabled = true;
 
 const SignupPage = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
-  const [formErrors, setFormErrors] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
   const validate = (name, value) => {
@@ -43,8 +43,13 @@ const SignupPage = (props) => {
     validate(name, valueToUse);
     setFormValues({ ...formValues, [name]: valueToUse });
   };
+  useEffect(() => {
+    schema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
+
   const submit = (evt) => {
     evt.preventDefault();
+    console.log(formValues);
     axios
       .post(
         "https://water-my-plants-8-api.herokuapp.com/auth/register",
@@ -52,22 +57,20 @@ const SignupPage = (props) => {
       )
       .then((res) => {
         console.log(res);
-        //setUser(pass in user object from res)
-        //props.history.push(`plants route`)
-        setFormValues(initialFormValues);
-        setFormErrors(initialFormErrors);
+        setUser(res.data.user);
+        localStorage.setItem("token", res.data.token);
+        //history.push(`plants route`)
+        // setFormValues(initialFormValues);
+        // setFormErrors(initialFormErrors);
       })
       .catch((err) => {
-        setFormValues(initialFormValues);
-        setFormErrors(initialFormErrors);
+        console.log(err);
+        // setFormValues(initialFormValues);
+        // setFormErrors(initialFormErrors);
       });
-    setFormValues(initialFormValues);
-    setFormErrors(initialFormErrors);
+    // setFormValues(initialFormValues);
+    // setFormErrors(initialFormErrors);
   };
-
-  useEffect(() => {
-    schema.isValid(formValues).then((valid) => setDisabled(!valid));
-  }, [formValues]);
 
   return (
     <FormStyled>
@@ -85,7 +88,7 @@ const SignupPage = (props) => {
 
           <p class="warning">{formErrors.username}</p>
 
-          <input
+          {/* <input
             className="name"
             name="firstName"
             placeHolder="Enter first name"
@@ -105,7 +108,7 @@ const SignupPage = (props) => {
             value={formValues.lastName}
           />
 
-          <p class="warning">{formErrors.lastName}</p>
+          <p class="warning">{formErrors.lastName}</p> */}
 
           <input
             className="phone"
