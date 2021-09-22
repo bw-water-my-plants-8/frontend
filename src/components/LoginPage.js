@@ -4,6 +4,8 @@ import schema from "../validation/LoginSchema";
 import FormStyled from "./FormStyled";
 import axios from "axios";
 import * as yup from "yup";
+import { connect } from "react-redux";
+import { setUser } from "../actions";
 
 const initialFormValues = {
   username: "",
@@ -39,8 +41,9 @@ const LoginPage = (props) => {
       )
       .then((res) => {
         console.log(res);
-        localStorage.setItem("token", res.data.token);
-        props.history.push("/plants");
+        // setUser(res.user);
+        // localStorage.setItem("token", res.data.token);
+        // props.history.push("/plants");
         setFormValues(initialFormValues);
         setFormErrors(initialFormErrors);
       })
@@ -102,4 +105,10 @@ const LoginPage = (props) => {
   );
 };
 
-export default LoginPage;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, { setUser })(LoginPage);
