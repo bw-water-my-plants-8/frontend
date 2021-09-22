@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 
+import Home from "./components/Home/Home"
+import Header from "./components/Home/Header"
 import LoginPage from "./components/LoginPage";
 import icon from "./images/loginIcon.jpg";
 // import icon from "./images/signupIcon.jpg";
@@ -25,12 +27,16 @@ function App() {
       {/* Jennifer's section */}
       {/* <PlantInfoForm /> */}
       {/* Shanae's Section */}
+      <Header />
       <Switch>
         <Route path="/login">
           <LoginPage icon={icon} />
         </Route>
         <Route path="/signup">
           <SignupPage />
+        </Route>
+        <Route path="/">
+          <Home />
         </Route>
       </Switch>
       {/* John's section */}
