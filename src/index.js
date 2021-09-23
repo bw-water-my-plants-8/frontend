@@ -8,9 +8,10 @@ import { ThemeProvider } from "styled-components";
 import theme from "./theme";
 import { Provider } from "react-redux";
 import reducer from "./reducer";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

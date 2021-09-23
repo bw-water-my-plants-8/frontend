@@ -14,6 +14,7 @@ const initialState = {
     password: "",
     phone_number: "",
   },
+  editing: false,
   error: "",
 };
 
@@ -42,6 +43,13 @@ const reducer = (state = initialState, action) => {
     case EDIT_PLANT:
       return {
         ...state,
+        plants: state.plants.map((plant) => {
+          if (plant.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return plant;
+          }
+        }),
       };
     case DELETE_PLANT:
       return {
