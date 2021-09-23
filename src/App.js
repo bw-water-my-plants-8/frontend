@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 
 import Home from "./components/Home/Home"
 import Header from "./components/Header/Header"
+import LoggedHeader from "./components/LoggedInHeader/LoggedHeader";
 import LoginPage from "./components/LoginPage";
 import icon from "./images/loginIcon.jpg";
 import PlantsList from "./components/PlantsList/PlantsList"
@@ -12,10 +13,14 @@ import PlantsList from "./components/PlantsList/PlantsList"
 import SignupPage from "./components/SignupPage";
 
 // import PlantInfoForm from "./components/PlantInfoForm";
-
+const initialLoggedIn = false;
 function App() {
+  const [ loggedIn, setLoggedIn ] = useState(initialLoggedIn);
   //Jennifer's section
 
+  const logUser = () => {
+    setLoggedIn(true)
+  }
   //Shanae's section
   // const [memberData, setMemberData] = useState([])
   // useEffect(() => {
@@ -28,7 +33,11 @@ function App() {
       {/* Jennifer's section */}
       {/* <PlantInfoForm /> */}
       <div className="left">
-        <Header id="header"/>
+        {
+          (loggedIn === true)
+            ? <LoggedHeader />
+            : <Header />
+        }
       </div>
       <div className="right">
         <Switch>
@@ -36,10 +45,10 @@ function App() {
             <PlantsList />
           </Route>
           <Route path="/login">
-            <LoginPage icon={icon} />
+            <LoginPage icon={icon} log={logUser}/>
           </Route>
           <Route path="/signup">
-            <SignupPage />
+            <SignupPage log={logUser}/>
           </Route>
           <Route path="/">
             <Home id="home"/>

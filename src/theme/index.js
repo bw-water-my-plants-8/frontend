@@ -1,5 +1,6 @@
 import logo from "../images/logo_placeholder.png"
 import loginIcon from "../images/loginIcon.jpg"
+import signupLogo from "../images/signupIcon.png"
 import featureIcon from "../images/featureIcon_placeholder.png"
 
 const theme = {
@@ -10,6 +11,7 @@ const theme = {
   fourthColor: '#f4f4f4',
   mainLogo: logo,
   loginLogo: loginIcon,
+  signupLogo: signupLogo,
   featureLogo: featureIcon
 };
 

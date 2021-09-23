@@ -20,6 +20,7 @@ const initialFormErrors = {
 const LoginPage = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const { log } = props;
   const history = useHistory();
 
   const validate = (name, value) => {
@@ -45,6 +46,7 @@ const LoginPage = (props) => {
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
         history.push("/plants");
+        log();
         setFormValues(initialFormValues);
         setFormErrors(initialFormErrors);
       })

@@ -32,6 +32,7 @@ const SignupPage = (props) => {
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
   const [createError, setCreateError] = useState(initialCreateError);
+  const { log } = props;
 
   const history = useHistory()
 
@@ -64,6 +65,7 @@ const SignupPage = (props) => {
         console.log(res);
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
+        log();
         history.push(`/plants`)
         // setFormValues(initialFormValues);
         // setFormErrors(initialFormErrors);
