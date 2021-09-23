@@ -3,7 +3,7 @@ import schema from "./../validation/PlantInfoSchema";
 import * as yup from "yup";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
-import { addPlant, editPlant } from "../actions";
+import { addPlant, editPlant } from "../actions/plantActions";
 import { useHistory, useParams } from "react-router-dom";
 
 const initialState = {

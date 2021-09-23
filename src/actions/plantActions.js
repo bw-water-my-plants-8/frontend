@@ -1,7 +1,5 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
 
-export const SET_USER = "SET_USER";
-export const SET_ERROR = "SET_ERROR";
 export const FETCH_START = "FETCH_START";
 export const SET_PLANTS = "SET_PLANTS";
 export const TOGGLE_EDITING = "TOGGLE_EDITING";
@@ -21,14 +19,6 @@ export const getPlants = () => {
         dispatch(err);
       });
   };
-};
-
-export const setUser = (user) => {
-  return { type: SET_USER, payload: user };
-};
-
-export const setError = (error) => {
-  return { type: SET_ERROR, payload: error };
 };
 
 export const fetchStart = () => {

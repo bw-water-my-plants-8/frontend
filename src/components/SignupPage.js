@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import axios from "axios";
 import * as yup from "yup";
 import { connect } from "react-redux";
-import { setUser } from "../actions";
+import { setUser } from "../actions/userActions";
 
 import FormStyled from "./FormStyled";
 import schema from "../validation/SignupSchema";
