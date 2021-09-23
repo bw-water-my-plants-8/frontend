@@ -1,6 +1,8 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
+import { useParams } from "react-router-dom";
 
 export const FETCH_START = "FETCH_START";
+export const SET_ERROR = "SET_ERROR";
 export const SET_PLANTS = "SET_PLANTS";
 export const TOGGLE_EDITING = "TOGGLE_EDITING";
 export const ADD_PLANT = "ADD_PLANT";
@@ -16,13 +18,31 @@ export const getPlants = () => {
         dispatch(setPlantsState(res.data));
       })
       .catch((err) => {
-        dispatch(err);
+        dispatch(setError(err));
+      });
+  };
+};
+
+export const deletePlants = () => {
+  return (dispatch) => {
+    const { id } = useParams();
+    axiosWithAuth()
+      .delete(`https://water-my-plants-8-api.herokuapp.com//plants/${id}`)
+      .then((res) => {
+        dispatch(deletePlant(res.data));
+      })
+      .catch((err) => {
+        dispatch(setError(err));
       });
   };
 };
 
 export const fetchStart = () => {
   return { type: FETCH_START };
+};
+
+export const setError = (error) => {
+  return { type: SET_ERROR, payload: error };
 };
 
 export const setPlantsState = (plants) => {
