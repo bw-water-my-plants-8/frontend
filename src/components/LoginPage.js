@@ -5,7 +5,7 @@ import FormStyled from "./FormStyled";
 import axios from "axios";
 import * as yup from "yup";
 import { connect } from "react-redux";
-import { loginError, setUser } from "../actions";
+import { setError, setUser } from "../actions";
 import { useHistory } from "react-router-dom";
 
 const initialFormValues = {
@@ -51,7 +51,7 @@ const LoginPage = (props) => {
         setFormErrors(initialFormErrors);
       })
       .catch((err) => {
-        loginError(err);
+        setError(err);
         setFormValues(initialFormValues);
         setFormErrors(initialFormErrors);
       });
@@ -111,4 +111,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setUser, loginError })(LoginPage);
+export default connect(mapStateToProps, { setUser, setError })(LoginPage);
