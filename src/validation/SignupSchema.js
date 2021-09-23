@@ -29,7 +29,7 @@ const formSchema = yup.object().shape({
       "Password must be eight characters, have at least one uppercase letter and one lowercase letter, one number, and one special character"
     ),
   phone: yup.string().matches(phoneRegExp, "Please enter a valid phone number"),
-  // tos: yup.boolean().oneOf([true], "You must accept the Terms of Service"),
+  tos: yup.boolean().oneOf([true], "You must accept the Terms of Service"),
 });
 
 export default formSchema;

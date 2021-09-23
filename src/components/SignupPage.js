@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom'
 import axios from "axios";
 import * as yup from "yup";
 import { connect } from "react-redux";
@@ -13,7 +14,7 @@ const initialFormValues = {
   phone: "",
   // firstName: "",
   // lastName: "",
-  // tos: false,
+  tos: false,
 };
 const initialFormErrors = {
   username: "",
@@ -21,14 +22,19 @@ const initialFormErrors = {
   phone: "",
   //   firstName: "",
   //   lastName: "",
-  //   tos: false,
+  tos: "",
 };
-const initialDisabled = true;
+const initialDisabled = false;
+const initialCreateError = "";
 
 const SignupPage = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
+  const [createError, setCreateError] = useState(initialCreateError);
+  const { log } = props;
+
+  const history = useHistory()
 
   const validate = (name, value) => {
     yup
@@ -59,12 +65,15 @@ const SignupPage = (props) => {
         console.log(res);
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
-        //history.push(`plants route`)
+        log();
+        history.push(`/plants`)
         // setFormValues(initialFormValues);
         // setFormErrors(initialFormErrors);
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response)
+        setCreateError(err.response.data.message)
         // setFormValues(initialFormValues);
         // setFormErrors(initialFormErrors);
       });
@@ -76,17 +85,18 @@ const SignupPage = (props) => {
     <FormStyled>
       <div>
         <h1>Create New Account</h1>
+        { createError && <p class="warning">{createError}</p>}
         <form onSubmit={submit}>
           <input
             className="username"
             name="username"
-            placeHolder="Enter a username"
+            placeholder="Enter a username"
             type="text"
             onChange={inputChange}
             value={formValues.username}
           />
 
-          <p class="warning">{formErrors.username}</p>
+          <p className="warning">{formErrors.username}</p>
 
           {/* <input
             className="name"
@@ -113,22 +123,22 @@ const SignupPage = (props) => {
           <input
             className="phone"
             name="phone"
-            placeHolder="Enter a phone number"
+            placeholder="Enter a phone number"
             type="text"
             onChange={inputChange}
             value={formValues.phone}
           />
 
-          <p class="warning">{formErrors.phone}</p>
+          <p className="warning">{formErrors.phone}</p>
           <input
             className="password"
             name="password"
-            placeHolder="Enter a password"
+            placeholder="Enter a password"
             type="password"
             onChange={inputChange}
             value={formValues.password}
           />
-          <p class="warning">{formErrors.password}</p>
+          <p className="warning">{formErrors.password}</p>
           {/* <label>Reenter Password<br/>
             <input 
               name="passconfirm"
@@ -148,7 +158,7 @@ const SignupPage = (props) => {
               onChange={inputChange}
             />
           </label>
-          <p class="warning">{formErrors.tos}</p>
+          <p className="warning">{formErrors.tos}</p>
           <button className="newAcct" disabled={disabled}>
             Create Account!
           </button>
