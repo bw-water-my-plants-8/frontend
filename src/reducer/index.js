@@ -1,10 +1,11 @@
-import { SET_USER, SET_ERROR } from "../actions/userActions";
+import { SET_USER } from "../actions/userActions";
 import {
   ADD_PLANT,
   EDIT_PLANT,
   DELETE_PLANT,
   SET_PLANTS,
   FETCH_START,
+  SET_ERROR,
   TOGGLE_EDITING,
 } from "../actions/plantActions";
 
