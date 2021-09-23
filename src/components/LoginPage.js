@@ -5,7 +5,7 @@ import FormStyled from "./FormStyled";
 import axios from "axios";
 import * as yup from "yup";
 import { connect } from "react-redux";
-import { setError, setUser } from "../actions";
+import { setError, setUser } from "../actions/userActions";
 import { useHistory } from "react-router-dom";
 
 const initialFormValues = {

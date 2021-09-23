@@ -1,13 +1,12 @@
+import { SET_USER, SET_ERROR } from "../actions/userActions";
 import {
-  SET_USER,
   ADD_PLANT,
   EDIT_PLANT,
   DELETE_PLANT,
   SET_PLANTS,
-  SET_ERROR,
   FETCH_START,
   TOGGLE_EDITING,
-} from "../actions";
+} from "../actions/plantActions";
 
 const initialState = {
   plants: [],
