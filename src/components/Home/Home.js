@@ -1,12 +1,23 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import HomeStyled from "./HomeStyled"
 
-import './Home.css'
-// import Header from './Header'
+const Home = () => {
+    const history = useHistory()
 
-export function Home() {
-
+    const sendToLogin = () => {
+        history.push('/login')
+    }
+    const sendToSignUp = () => {
+        history.push('/signup')
+    }
     return (
-        <h1>This is home</h1>
+        <HomeStyled>
+            <div className="home-box">
+                <button onClick={sendToLogin}>LOG IN</button>
+                <button onClick={sendToSignUp}>SIGN UP</button>
+            </div>
+        </HomeStyled>
     )
 }
 

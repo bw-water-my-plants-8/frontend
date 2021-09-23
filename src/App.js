@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 
 import Home from "./components/Home/Home"
-import Header from "./components/Home/Header"
+import Header from "./components/Header/Header"
 import LoginPage from "./components/LoginPage";
 import icon from "./images/loginIcon.jpg";
+import PlantsList from "./components/PlantsList/PlantsList"
 // import icon from "./images/signupIcon.jpg";
 
 import SignupPage from "./components/SignupPage";
@@ -23,23 +24,28 @@ function App() {
   //John's section
 
   return (
-    <div>
+    <div id="App">
       {/* Jennifer's section */}
       {/* <PlantInfoForm /> */}
-      {/* Shanae's Section */}
-      <Header />
-      <Switch>
-        <Route path="/login">
-          <LoginPage icon={icon} />
-        </Route>
-        <Route path="/signup">
-          <SignupPage />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-      {/* John's section */}
+      <div className="left">
+        <Header id="header"/>
+      </div>
+      <div className="right">
+        <Switch>
+          <Route path="/plants">
+            <PlantsList />
+          </Route>
+          <Route path="/login">
+            <LoginPage icon={icon} />
+          </Route>
+          <Route path="/signup">
+            <SignupPage />
+          </Route>
+          <Route path="/">
+            <Home id="home"/>
+          </Route>
+        </Switch>
+      </div>
     </div>
   );
 }

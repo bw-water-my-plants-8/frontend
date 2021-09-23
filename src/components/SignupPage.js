@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom'
 import axios from "axios";
 import * as yup from "yup";
 import { connect } from "react-redux";
@@ -32,6 +33,8 @@ const SignupPage = (props) => {
   const [disabled, setDisabled] = useState(initialDisabled);
   const [createError, setCreateError] = useState(initialCreateError);
 
+  const history = useHistory()
+
   const validate = (name, value) => {
     yup
       .reach(schema, name)
@@ -61,7 +64,7 @@ const SignupPage = (props) => {
         console.log(res);
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
-        //history.push(`plants route`)
+        history.push(`/plants`)
         // setFormValues(initialFormValues);
         // setFormErrors(initialFormErrors);
       })
@@ -80,7 +83,7 @@ const SignupPage = (props) => {
     <FormStyled>
       <div>
         <h1>Create New Account</h1>
-        <p class="warning">{createError}</p>
+        { createError && <p class="warning">{createError}</p>}
         <form onSubmit={submit}>
           <input
             className="username"
@@ -91,7 +94,7 @@ const SignupPage = (props) => {
             value={formValues.username}
           />
 
-          <p class="warning">{formErrors.username}</p>
+          <p className="warning">{formErrors.username}</p>
 
           {/* <input
             className="name"
