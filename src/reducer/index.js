@@ -3,7 +3,10 @@ import {
   ADD_PLANT,
   EDIT_PLANT,
   DELETE_PLANT,
-  LOGIN_ERROR,
+  SET_PLANTS,
+  SET_ERROR,
+  FETCH_START,
+  TOGGLE_EDITING,
 } from "../actions";
 
 const initialState = {
@@ -14,12 +17,18 @@ const initialState = {
     password: "",
     phone_number: "",
   },
+  isFetching: false,
   editing: false,
   error: "",
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
     case SET_USER:
       return {
         ...state,
@@ -29,16 +38,27 @@ const reducer = (state = initialState, action) => {
           password: action.payload.password,
           phone_number: action.payload.phone_number,
         },
+        isFetching: false,
       };
-    case LOGIN_ERROR:
+    case SET_ERROR:
       return {
         ...state,
         error: action.payload,
+      };
+    case SET_PLANTS:
+      return {
+        ...state,
+        plants: action.payload,
+      };
+    case TOGGLE_EDITING:
+      return {
+        editing: !state.editing,
       };
     case ADD_PLANT:
       return {
         ...state,
         plants: [...state.plants, action.payload],
+        isFetching: false,
       };
     case EDIT_PLANT:
       return {
@@ -50,6 +70,8 @@ const reducer = (state = initialState, action) => {
             return plant;
           }
         }),
+        isFetching: false,
+        editing: false,
       };
     case DELETE_PLANT:
       return {

@@ -3,7 +3,8 @@ import schema from "./../validation/PlantInfoSchema";
 import * as yup from "yup";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
-import { addPlant } from "../actions";
+import { addPlant, editPlant } from "../actions";
+import { useHistory, useParams } from "react-router-dom";
 
 const initialState = {
   nickname: "",
@@ -20,10 +21,12 @@ const initialFormErrors = {
 
 const btnDisabled = true;
 
-const PlantInfoForm = () => {
+const PlantInfoForm = (props) => {
   const [plant, setPlant] = useState(initialState);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(btnDisabled);
+  const { id } = useParams();
+  const history = useHistory();
 
   const validate = (name, value) => {
     yup
@@ -45,16 +48,28 @@ const PlantInfoForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axiosWithAuth()
-      .post(`https://water-my-plants-8-api.herokuapp.com/plants`, plant)
-      .then((res) => {
-        addPlant(res.data);
-        setPlant(initialState);
-        setFormErrors(initialFormErrors);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (props.editing === false) {
+      axiosWithAuth()
+        .post(`https://water-my-plants-8-api.herokuapp.com/plants`, plant)
+        .then((res) => {
+          addPlant(res.data);
+          setPlant(initialState);
+          setFormErrors(initialFormErrors);
+          history.push(`/plants/${res.data.plant_id}`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axiosWithAuth()
+        .put(`https://water-my-plants-8-api.herokuapp.com/plants/${id}`, plant)
+        .then((res) => {
+          editPlant(res.data);
+          setPlant(initialState);
+          setFormErrors(initialFormErrors);
+          history.push(`/plants/${res.data.plant_id}`);
+        });
+    }
   };
 
   return (
@@ -113,8 +128,8 @@ const PlantInfoForm = () => {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
+    editing: state.editing,
   };
 };
 
-export default connect(mapStateToProps, { addPlant })(PlantInfoForm);
+export default connect(mapStateToProps, { addPlant, editPlant })(PlantInfoForm);
