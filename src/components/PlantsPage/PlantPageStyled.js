@@ -12,6 +12,7 @@ const PlantPageStyled = styled.div `
         width: 95%;
         height: 25%;
         border-bottom: ${pr => pr.theme.thirdColor} solid 5px;
+        margin-bottom: 2rem;
         text-align: center;
     }
 

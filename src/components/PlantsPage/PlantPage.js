@@ -17,8 +17,6 @@ function PlantPage() {
             <PlantsList>
 
             </PlantsList>
-    
-            
         </PlantPageStyled>
     )
 }

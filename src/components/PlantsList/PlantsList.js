@@ -36,13 +36,22 @@ export default function PlantsList() {
 }
 
 function PlantDetails(props) {
-    const { nickname , plant_id } = props.plant;
+    const { nickname , plant_id, species, h2oFrequency, last_watered, next_water } = props.plant;
 
     return (
         <Link to={`/plants/${plant_id}`}>
             <div className="plant-card" >
-                <h2>{nickname}</h2>
-                <p>{plant_id}</p>
+                <div className="descriptions">
+                    <h2>{nickname}</h2>
+                    <h2 className="fancy">{species}</h2>
+                </div>
+                <div className="water-details">
+                    <p>{last_watered}</p>
+                    <p>{next_water}</p>
+                    <p>Water: {h2oFrequency.frequency} time(s) / Every {h2oFrequency.timeframe}</p>
+                </div>
+                
+
             </div>
         </Link>
 
