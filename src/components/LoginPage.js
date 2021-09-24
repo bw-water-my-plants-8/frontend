@@ -47,7 +47,7 @@ const LoginPage = (props) => {
       .then((res) => {
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
-        log();
+        log(res.data.user);
         history.push("/plants");
         // setFormValues(initialFormValues);
         // setFormErrors(initialFormErrors);

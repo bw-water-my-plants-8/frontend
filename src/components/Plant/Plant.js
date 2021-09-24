@@ -5,19 +5,21 @@ import { useParams } from "react-router-dom";
 export default function Plant(props) {
     const [plant, setPlant] = useState();
 
-    const { id } = useParams;
+    const { plant_id } = useParams();
 
     useEffect(() => {
         axiosWithAuth()
-        .get(`https://water-my-plants-8-api.herokuapp.com/plants/${id}`)
+        .get(`https://water-my-plants-8-api.herokuapp.com/plants/${plant_id}`)
         .then( res => {
             console.log(res);
             setPlant(res.data);
         })
         .catch( err => {
-            console.log(err);
+            
+            console.log(plant_id)
+            console.log(err.message);
         })
-    }, [id])
+    }, [plant_id])
 
     if(!plant) {
         return <div>Loading Plant Info</div>
@@ -27,7 +29,7 @@ export default function Plant(props) {
 
     return (
     <div className="save-wrapper">
-        <div className="movie-card">
+        <div className="plant-card">
             <h2>{nickname}</h2>
         </div>
     </div>

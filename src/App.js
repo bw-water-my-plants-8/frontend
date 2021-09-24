@@ -20,10 +20,12 @@ import SignupPage from "./components/SignupPage";
 const initialLoggedIn = false;
 function App() {
   const [loggedIn, setLoggedIn] = useState(initialLoggedIn);
+  const [ user, setUser ] = useState();
+  
   //Jennifer's section
 
-  const logUser = () => {
-    setLoggedIn(true);
+  const logUser = (user) => {
+    setUser(user);
   };
   //Shanae's section
   // const [memberData, setMemberData] = useState([])
@@ -31,40 +33,26 @@ function App() {
   //   setMemberData(memberList)
   // }, [])
   // John's section;
-  const checkLogInStatus = () => {
-    axios
-      .get("http://localhost:3001/logged_in", { withCredentials: true})
-      .then( res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-  const componentDidMount= () => {
-    this.checkLogInStatus();
-  }
-
+  
   useEffect(() => {
     
     const showmeLogged= () => {
-      console.log(loggedIn);
+      console.log(user);
     }
 
     showmeLogged();
-  }, [loggedIn])
+  }, [user])
 
   return (
     <div id="App">
       {/* Jennifer's section */}
       {/* <PlantInfoForm /> */}
       <div className="left">
-        {loggedIn === true ? <LoggedHeader /> : <Header />}
+        {user ? <LoggedHeader /> : <Header />}
       </div>
       <div className="right">
         <Switch>
-          <PrivateRoute path={'/plants/:id'}>
+          <PrivateRoute path={'/plants/:plant_id'}>
             <Plant />
           </PrivateRoute>
           <PrivateRoute path="/plants">

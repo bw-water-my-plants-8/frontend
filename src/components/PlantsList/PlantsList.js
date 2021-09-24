@@ -28,9 +28,6 @@ export default function PlantsList() {
 
     return (
         <PlantsListStyled className="plants-list">
-            <div className="plant-header">
-                <h1>Reminder Garden</h1>
-            </div>
             {plantsList.map(plant => (
                 <PlantDetails key={plant.plant_id} plant={plant} />
             ))}
@@ -39,13 +36,13 @@ export default function PlantsList() {
 }
 
 function PlantDetails(props) {
-    const { nickname } = props.plant;
+    const { nickname , plant_id } = props.plant;
 
     return (
-        <Link to={`/plants/${props.plant.plant_id}`}>
-            <div className="movie-card" >
+        <Link to={`/plants/${plant_id}`}>
+            <div className="plant-card" >
                 <h2>{nickname}</h2>
-                <p>{props.plant.plant_id}</p>
+                <p>{plant_id}</p>
             </div>
         </Link>
 

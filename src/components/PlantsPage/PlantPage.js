@@ -8,13 +8,15 @@ function PlantPage() {
 
     return (
         <PlantPageStyled>
-            <PlantsList>
-                
-            </PlantsList>
-            
-            <PlantInfoForm>
+            <div className="plant-header">
+                <h1>User's Garden</h1>
+                <PlantInfoForm>
 
-            </PlantInfoForm>
+                </PlantInfoForm>
+            </div>
+            <PlantsList>
+
+            </PlantsList>
     
             
         </PlantPageStyled>
