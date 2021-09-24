@@ -3,8 +3,7 @@ import styled from "styled-components";
 const LogIconStyled = styled.div`
   img {
     position: fixed;
-    height: 180px;
-    margin-left: 15rem;
+    margin-left: -12rem;
     margin-top: -5.5rem;
   }
 `;

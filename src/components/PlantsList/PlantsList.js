@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 import PlantsListStyled from './PlatsListStyled'
 export default function PlantsList() {
@@ -15,13 +16,13 @@ export default function PlantsList() {
               })
             .then( res => {
                 setPlantsList(res.data)
+                // console.log(res);
             })
             .catch( err => {
                 console.log(err);
             })   
         }
         getPlants();
-        // console.log(localStorage.getItem("token"));
     }, [])
 
 
@@ -31,7 +32,7 @@ export default function PlantsList() {
                 <h1>Reminder Garden</h1>
             </div>
             {plantsList.map(plant => (
-                <PlantDetails key={plant.id} plant={plant} />
+                <PlantDetails key={plant.plant_id} plant={plant} />
             ))}
         </PlantsListStyled>
     )
@@ -41,8 +42,12 @@ function PlantDetails(props) {
     const { nickname } = props.plant;
 
     return (
-        <div className="plant-details">
-            <h2>{nickname}</h2>
-        </div>
+        <Link to={`/plants/${props.plant.plant_id}`}>
+            <div className="movie-card" >
+                <h2>{nickname}</h2>
+                <p>{props.plant.plant_id}</p>
+            </div>
+        </Link>
+
     )
 }
