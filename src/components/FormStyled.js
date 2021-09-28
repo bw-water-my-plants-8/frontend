@@ -9,6 +9,7 @@ const FormStyled = styled.div`
   border-radius: 5%;
   box-shadow: 0 0 7px #000;
   font-family: "Gideon Roman", cursive;
+  
   h1 {
     padding-top: 22%;
     text-align: center;
@@ -68,7 +69,7 @@ const FormStyled = styled.div`
     font-size: 1rem;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
   }
-  .signUp {
+  .signing {
     margin-top: 35px;
   }
   a {
@@ -80,6 +81,7 @@ const FormStyled = styled.div`
   .forgot,
   .terms {
     text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    text-align: center;
   }
   .warning {
     color: red;

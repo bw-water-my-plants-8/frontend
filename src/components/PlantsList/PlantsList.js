@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 import PlantsListStyled from './PlatsListStyled'
 export default function PlantsList() {
@@ -15,34 +16,44 @@ export default function PlantsList() {
               })
             .then( res => {
                 setPlantsList(res.data)
+                // console.log(res);
             })
             .catch( err => {
                 console.log(err);
             })   
         }
         getPlants();
-        // console.log(localStorage.getItem("token"));
     }, [])
 
 
     return (
         <PlantsListStyled className="plants-list">
-            <div className="plant-header">
-                <h1>Reminder Garden</h1>
-            </div>
             {plantsList.map(plant => (
-                <PlantDetails key={plant.id} plant={plant} />
+                <PlantDetails key={plant.plant_id} plant={plant} />
             ))}
         </PlantsListStyled>
     )
 }
 
 function PlantDetails(props) {
-    const { nickname } = props.plant;
+    const { nickname , plant_id, species, h2oFrequency, last_watered, next_water } = props.plant;
 
     return (
-        <div className="plant-details">
-            <h2>{nickname}</h2>
-        </div>
+        <Link to={`/plants/${plant_id}`}>
+            <div className="plant-card" >
+                <div className="descriptions">
+                    <h2>{nickname}</h2>
+                    <h2 className="fancy">{species}</h2>
+                </div>
+                <div className="water-details">
+                    <p>{last_watered}</p>
+                    <p>{next_water}</p>
+                    <p>Water: {h2oFrequency.frequency} time(s) / Every {h2oFrequency.timeframe}</p>
+                </div>
+                
+
+            </div>
+        </Link>
+
     )
 }

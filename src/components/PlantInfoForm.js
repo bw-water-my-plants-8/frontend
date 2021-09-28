@@ -5,6 +5,7 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { addPlant, editPlant } from "../actions/plantActions";
 import { useHistory, useParams } from "react-router-dom";
+import PlantInfoFormStyled from "./PlantInfoFormStyled";
 
 const initialState = {
   nickname: "",
@@ -73,42 +74,54 @@ const PlantInfoForm = (props) => {
   };
 
   return (
-    <div>
+    <PlantInfoFormStyled>
       <form onSubmit={handleSubmit}>
-        <label>
-          {" "}
-          Nickname
+        <div className="inputs-box">
+          <label>
+            {" "}
+            Nickname
+          </label>
           <input
-            type="text"
-            value={plant.nickname}
-            name="nickname"
-            onChange={handleChange}
-          />
-        </label>
-        <p>{formErrors.nickname}</p>
-        <label>
-          {" "}
-          Species
+              type="text"
+              value={plant.nickname}
+              name="nickname"
+              onChange={handleChange}
+            />
+          <p>{formErrors.nickname}</p>
+        </div>
+        
+        <div className="inputs-box">
+          <label>
+            {" "}
+            Species
+          </label>
           <input
-            type="text"
-            value={plant.species}
-            name="species"
-            onChange={handleChange}
-          />
-        </label>
-        <p>{formErrors.species}</p>
-        <label htmlFor="frequency">
-          Water Frequency
+              type="text"
+              value={plant.species}
+              name="species"
+              onChange={handleChange}
+            />
+          <p>{formErrors.species}</p>
+        </div>
+
+        <div className="inputs-box">
+          <label htmlFor="frequency">
+            Water Frequency
+          </label>
           <input
-            type="number"
-            id="frequency"
-            value={plant.frequency}
-            name="frequency"
-            onChange={handleChange}
-          />
-        </label>
-        <p>{formErrors.frequency}</p>
-        <label htmlFor="timeframe">
+              type="number"
+              id="frequency"
+              value={plant.frequency}
+              name="frequency"
+              onChange={handleChange}
+            />
+          <p>{formErrors.frequency}</p>
+        </div>
+
+        <div className="inputs-box time">
+          <label htmlFor="timeframe">
+            Time Frame
+          </label>
           <select id="timeframe" onChange={handleChange}>
             <option name="timeframe" value="day">
               Days
@@ -117,12 +130,15 @@ const PlantInfoForm = (props) => {
               Weeks
             </option>
           </select>
-        </label>
-        <button onClick={handleSubmit} disabled={disabled}>
-          Confirm
-        </button>
+        </div>
+
+        <div className="inputs-box time">
+          <button onClick={handleSubmit} disabled={disabled}>
+            Confirm
+          </button>
+        </div>
       </form>
-    </div>
+    </PlantInfoFormStyled>
   );
 };
 

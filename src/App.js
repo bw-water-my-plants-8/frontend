@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
@@ -7,8 +8,10 @@ import Home from "./components/Home/Home";
 import Header from "./components/Header/Header";
 import LoggedHeader from "./components/LoggedInHeader/LoggedHeader";
 import LoginPage from "./components/LoginPage";
-import icon from "./images/loginIcon.jpg";
-import PlantsList from "./components/PlantsList/PlantsList";
+import logInIcon from "./images/loginIcon.jpg";
+import signUpIcon from "./images/signupIcon.png";
+import PlantPage from "./components/PlantsPage/PlantPage";
+import Plant from "./components/Plant/Plant"; 
 // import icon from "./images/signupIcon.jpg";
 
 import SignupPage from "./components/SignupPage";
@@ -17,35 +20,49 @@ import SignupPage from "./components/SignupPage";
 const initialLoggedIn = false;
 function App() {
   const [loggedIn, setLoggedIn] = useState(initialLoggedIn);
+  const [ user, setUser ] = useState();
+  
   //Jennifer's section
 
-  const logUser = () => {
-    setLoggedIn(true);
+  const logUser = (user) => {
+    setUser(user);
   };
   //Shanae's section
   // const [memberData, setMemberData] = useState([])
   // useEffect(() => {
   //   setMemberData(memberList)
   // }, [])
-  //John's section
+  // John's section;
+  
+  useEffect(() => {
+    
+    const showmeLogged= () => {
+      console.log(user);
+    }
+
+    showmeLogged();
+  }, [user])
 
   return (
     <div id="App">
       {/* Jennifer's section */}
       {/* <PlantInfoForm /> */}
       <div className="left">
-        {loggedIn === true ? <LoggedHeader /> : <Header />}
+        {user ? <LoggedHeader /> : <Header />}
       </div>
       <div className="right">
         <Switch>
+          <PrivateRoute path={'/plants/:plant_id'}>
+            <Plant />
+          </PrivateRoute>
           <PrivateRoute path="/plants">
-            <PlantsList />
+            <PlantPage />
           </PrivateRoute>
           <Route path="/login">
-            <LoginPage icon={icon} log={logUser} />
+            <LoginPage icon={logInIcon} log={logUser} />
           </Route>
           <Route path="/signup">
-            <SignupPage log={logUser} />
+            <SignupPage icon={signUpIcon}log={logUser} />
           </Route>
           <Route path="/">
             <Home id="home" />

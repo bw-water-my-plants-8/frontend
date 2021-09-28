@@ -29,6 +29,7 @@ const HeaderStyled = styled.div`
         text-align: center;
         justify-content: space-evenly;
         background-color: ${pr => pr.theme.secondColor};
+        box-shadow: 0 -0.5rem 2px black;
     }
 
     .features-box .feature {

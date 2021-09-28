@@ -1,22 +1,44 @@
 import styled from "styled-components";
 
 const PlantsListStyled = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 97%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: ${pr => pr.theme.firstColor};
-
-    .plant-header {
-        width: 80%;
-        height: 15%;
-        text-align: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    a {
+        width: 25%;
+        margin-bottom: 2rem;
+        text-decoration: none;
+        color: ${pr => pr.theme.secondColor};
+    }
+    .plant-card {
+        border: ${pr => pr.theme.thirdColor} dashed 5px;
+        background-color: ${pr => pr.theme.fourthColor};
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        margin: 0 2rem 0 2rem;
+        padding: 1.5rem;
     }
 
-    .plant-header h1 {
-        font-size: 5rem;
+    .descriptions {
+        border-bottom: black solid 1px;
     }
+
+    .descriptions h2 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    .descriptions .fancy {
+        font-style: italic;
+        font-weight: normal;
+    }
+
+    .water-details {
+        margin-top: 1.5rem;
+    }
+
 `
 
 export default PlantsListStyled;

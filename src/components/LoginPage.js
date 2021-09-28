@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import LogIconStyled from "./LogIconStyled";
-import schema from "../validation/LoginSchema";
-import FormStyled from "./FormStyled";
 import axios from "axios";
 import * as yup from "yup";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { setUser } from "../actions/userActions";
 import { setError } from "../actions/plantActions";
-import { useHistory } from "react-router-dom";
+import LogIconStyled from "./LogIconStyled";
+import FormPageStyled from "./FormPageStyled";
+import schema from "../validation/LoginSchema";
+import FormStyled from "./FormStyled";
 
 const initialFormValues = {
   username: "",
@@ -46,10 +47,10 @@ const LoginPage = (props) => {
       .then((res) => {
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
+        log(res.data.user);
         history.push("/plants");
-        log();
-        setFormValues(initialFormValues);
-        setFormErrors(initialFormErrors);
+        // setFormValues(initialFormValues);
+        // setFormErrors(initialFormErrors);
       })
       .catch((err) => {
         setError(err);
@@ -59,7 +60,7 @@ const LoginPage = (props) => {
   };
 
   return (
-    <>
+    <FormPageStyled>
       <LogIconStyled>
         <div>
           <img src={props.icon} alt="login user icon" />
@@ -97,12 +98,12 @@ const LoginPage = (props) => {
           <p className="forgot" align="center">
             <a href="/login">Forgot Password?</a>
           </p>
-          <p align="center" className="signUp">
+          <p align="center" className="signing">
             Don't have an account? <a href="/signup">Sign up!</a>
           </p>
         </div>
       </FormStyled>
-    </>
+    </FormPageStyled>
   );
 };
 
