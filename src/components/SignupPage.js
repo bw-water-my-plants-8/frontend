@@ -14,16 +14,12 @@ const initialFormValues = {
   username: "",
   password: "",
   phone: "",
-  // firstName: "",
-  // lastName: "",
   tos: false,
 };
 const initialFormErrors = {
   username: "",
   password: "",
   phone: "",
-  //   firstName: "",
-  //   lastName: "",
   tos: "",
 };
 const initialDisabled = false;
@@ -34,9 +30,8 @@ const SignupPage = (props) => {
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
   const [createError, setCreateError] = useState(initialCreateError);
-  const { log } = props;
 
-  const history = useHistory()
+  const history = useHistory();
 
   const validate = (name, value) => {
     yup
@@ -57,30 +52,19 @@ const SignupPage = (props) => {
 
   const submit = (evt) => {
     evt.preventDefault();
-    console.log(formValues);
     axios
       .post(
         "https://water-my-plants-8-api.herokuapp.com/auth/register",
         formValues
       )
       .then((res) => {
-        console.log(res);
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
-        log(res.data.user);
-        history.push(`/plants`)
-        // setFormValues(initialFormValues);
-        // setFormErrors(initialFormErrors);
+        history.push(`/plants`);
       })
       .catch((err) => {
-        console.log(err);
-        console.log(err.response)
-        setCreateError(err.response.data.message)
-        // setFormValues(initialFormValues);
-        // setFormErrors(initialFormErrors);
+        setCreateError(err.response.data.message);
       });
-    // setFormValues(initialFormValues);
-    // setFormErrors(initialFormErrors);
   };
 
   return (
@@ -93,7 +77,7 @@ const SignupPage = (props) => {
       <FormStyled>
         <div>
           <h1>Create New Account</h1>
-          { createError && <p class="warning">{createError}</p>}
+          {createError && <p class="warning">{createError}</p>}
           <form onSubmit={submit}>
             <input
               className="username"
@@ -105,28 +89,6 @@ const SignupPage = (props) => {
             />
 
             <p className="warning">{formErrors.username}</p>
-
-            {/* <input
-              className="name"
-              name="firstName"
-              placeHolder="Enter first name"
-              type="text"
-              onChange={inputChange}
-              value={formValues.firstName}
-            />
-
-            <p class="warning">{formErrors.firstName}</p>
-
-            <input
-              className="name"
-              name="lastName"
-              placeHolder="Enter last name"
-              type="text"
-              onChange={inputChange}
-              value={formValues.lastName}
-            />
-
-            <p class="warning">{formErrors.lastName}</p> */}
 
             <input
               className="phone"
@@ -147,16 +109,7 @@ const SignupPage = (props) => {
               value={formValues.password}
             />
             <p className="warning">{formErrors.password}</p>
-            {/* <label>Reenter Password<br/>
-              <input 
-                name="passconfirm"
-                placeHolder="Reenter the password"
-                type="password"
-                onChange={inputChange}
-                value={formValues.passconfirm}
-              />
-            </label>
-            <p class="warning">{formErrors.passconfirm}</p> */}
+
             <label className="terms" align="center">
               <a href="/">Terms of Service</a>
               <input

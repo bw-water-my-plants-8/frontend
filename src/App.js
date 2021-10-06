@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+import { connect } from "react-redux";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
@@ -11,58 +11,28 @@ import LoginPage from "./components/LoginPage";
 import logInIcon from "./images/loginIcon.jpg";
 import signUpIcon from "./images/signupIcon.png";
 import PlantPage from "./components/PlantsPage/PlantPage";
-import Plant from "./components/Plant/Plant"; 
-// import icon from "./images/signupIcon.jpg";
-
+import Plant from "./components/Plant/Plant";
 import SignupPage from "./components/SignupPage";
 
-// import PlantInfoForm from "./components/PlantInfoForm";
-const initialLoggedIn = false;
-function App() {
-  const [loggedIn, setLoggedIn] = useState(initialLoggedIn);
-  const [ user, setUser ] = useState();
-  
-  //Jennifer's section
-
-  const logUser = (user) => {
-    setUser(user);
-  };
-  //Shanae's section
-  // const [memberData, setMemberData] = useState([])
-  // useEffect(() => {
-  //   setMemberData(memberList)
-  // }, [])
-  // John's section;
-  
-  useEffect(() => {
-    
-    const showmeLogged= () => {
-      console.log(user);
-    }
-
-    showmeLogged();
-  }, [user])
-
+function App(props) {
   return (
     <div id="App">
-      {/* Jennifer's section */}
-      {/* <PlantInfoForm /> */}
       <div className="left">
-        {user ? <LoggedHeader /> : <Header />}
+        {props.user.username !== "" ? <LoggedHeader /> : <Header />}
       </div>
       <div className="right">
         <Switch>
-          <PrivateRoute path={'/plants/:plant_id'}>
+          <PrivateRoute path={"/plants/:plant_id"}>
             <Plant />
           </PrivateRoute>
           <PrivateRoute path="/plants">
             <PlantPage />
           </PrivateRoute>
           <Route path="/login">
-            <LoginPage icon={logInIcon} log={logUser} />
+            <LoginPage icon={logInIcon} />
           </Route>
           <Route path="/signup">
-            <SignupPage icon={signUpIcon}log={logUser} />
+            <SignupPage icon={signUpIcon} />
           </Route>
           <Route path="/">
             <Home id="home" />
@@ -73,4 +43,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(App);
