@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import { useParams } from "react-router-dom";
+import PlantStyled from "./PlantStyled";
 
 export default function Plant(props) {
     const [plant, setPlant] = useState();
@@ -25,10 +26,12 @@ export default function Plant(props) {
     const { nickname } = plant;
 
     return (
-    <div className="save-wrapper">
-        <div className="plant-card">
-            <h2>{nickname}</h2>
-        </div>
-    </div>
+        <PlantStyled>
+            <div className="save-wrapper">
+                <div className="plant-card">
+                    <h2>{nickname}</h2>
+                </div>
+            </div>
+        </PlantStyled>
     )
 }

@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 const PlantsListStyled = styled.div`
     width: 97%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
     
     a {
         width: 25%;
