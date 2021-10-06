@@ -11,12 +11,9 @@ export default function Plant(props) {
         axiosWithAuth()
         .get(`https://water-my-plants-8-api.herokuapp.com/plants/${plant_id}`)
         .then( res => {
-            console.log(res);
             setPlant(res.data);
         })
         .catch( err => {
-            
-            console.log(plant_id)
             console.log(err.message);
         })
     }, [plant_id])

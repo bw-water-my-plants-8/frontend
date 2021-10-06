@@ -22,7 +22,6 @@ const initialFormErrors = {
 const LoginPage = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
-  const { log } = props;
   const history = useHistory();
 
   const validate = (name, value) => {
@@ -47,10 +46,7 @@ const LoginPage = (props) => {
       .then((res) => {
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
-        log(res.data.user);
         history.push("/plants");
-        // setFormValues(initialFormValues);
-        // setFormErrors(initialFormErrors);
       })
       .catch((err) => {
         setError(err);
