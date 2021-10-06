@@ -7,7 +7,7 @@ import { getPlants } from "../../actions/plantActions";
 function PlantsList(props) {
   useEffect(() => {
     props.getPlants();
-  }, []);
+  }, []); //eslint-disable-line
 
   return (
     <PlantsListStyled className="plants-list">
