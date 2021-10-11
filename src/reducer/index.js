@@ -52,6 +52,7 @@ const reducer = (state = initialState, action) => {
       };
     case TOGGLE_EDITING:
       return {
+        ...state,
         editing: !state.editing,
       };
     case ADD_PLANT:
